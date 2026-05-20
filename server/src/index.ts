@@ -25,6 +25,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import express from "express";
+import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { findActualExecutable } from "spawn-rx";
 import mcpProxy, { type ProxyHeaderHolder } from "./mcpProxy.js";
@@ -209,6 +210,7 @@ const updateHeadersInPlace = (
 };
 
 const app = express();
+app.use(helmet());
 app.use(cors());
 app.use((req, res, next) => {
   res.header(
